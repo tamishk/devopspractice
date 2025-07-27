@@ -1,0 +1,20 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-image-signature
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - match:
+        resources:
+          kinds:
+            - Pod
+      name: verify-image
+      verifyImages:
+        - image: "tamishk/coit-frontend*"
+          key: |-
+            -----BEGIN PUBLIC KEY-----
+            MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEfwPeR0F+kZQZqgFSxFDSkbXigwW4
+            j17N8VjplCufLShpljoP9wJOLfFm2UjYOEPqo+XKTrCO9JwlxpxLO6Zm+w==
+            -----END PUBLIC KEY-----
+      

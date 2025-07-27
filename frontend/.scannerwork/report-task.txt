@@ -1,0 +1,6 @@
+projectKey=coit-frontend
+serverUrl=http://localhost:9000
+serverVersion=25.4.0.105899
+dashboardUrl=http://localhost:9000/dashboard?id=coit-frontend
+ceTaskId=426da2c9-bcec-4224-bf9c-8a1037a9275b
+ceTaskUrl=http://localhost:9000/api/ce/task?id=426da2c9-bcec-4224-bf9c-8a1037a9275b
