@@ -6,9 +6,9 @@ name: CI for coit-frontend
 on:
   # Triggers the workflow on push or pull request events but only for the "develop" branch
   push:
-    branches: [ "develop" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -17,7 +17,7 @@ env:
   sonarscannerversion: 4.7.0.2747-linux
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: cluster-1    # Add your cluster name here.
-  GKE_ZONE: asia-south1-a   # Add your cluster zone here.
+  GKE_ZONE: us-central1-a   # Add your cluster zone here.
 
 jobs:
   buildandpush:
@@ -37,7 +37,7 @@ jobs:
           api_key: ${{ secrets.API_KEY }}
           sonarqube_url: ${{ secrets.SONARQUBE_URL }}
         run: |
-          cd coit-frontend 
+          cd frontend 
           $HOME/sonarqube/sonar-scanner-$sonarscannerversion/bin/sonar-scanner  \
             -Dsonar.projectKey=$sonarqube_project \
             -Dsonar.sources=. \
@@ -46,12 +46,12 @@ jobs:
 
       - name: Run Unit Tests
         run: | 
-          cd coit-frontend
+          cd frontend
           npm test || true
 
       - name: Check the Vulnaribilities of Dependencies 
         run: | 
-          cd coit-frontend
+          cd frontend
           npm audit || true
 
       - name: Docker Login
@@ -63,24 +63,24 @@ jobs:
 
       - name: Build the container Image
         run: | 
-          docker build coit-frontend -t coitlearning/coit-frontend:latest -f coit-frontend/Dockerfile-multistage
+          docker build frontend -t tamishk/coit-frontend:v2 -f frontend/Dockerfile-multistage
 
       - name: Push the container Image
         run: | 
-          docker push coitlearning/coit-frontend:latest
+          docker push tamishk/coit-frontend:v2
 
-      - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
-        with:
-          service_account_key: ${{ secrets.GKE_SA_KEY }}
-          project_id: ${{ secrets.GKE_PROJECT }}
+      # - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
+      #   with:
+      #     service_account_key: ${{ secrets.GKE_SA_KEY }}
+      #     project_id: ${{ secrets.GKE_PROJECT }}
 
-      - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
-        with:
-          cluster_name: ${{ env.GKE_CLUSTER }}
-          location: ${{ env.GKE_ZONE }}
-          credentials: ${{ secrets.GKE_SA_KEY }}
+      # - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+      #   with:
+      #     cluster_name: ${{ env.GKE_CLUSTER }}
+      #     location: ${{ env.GKE_ZONE }}
+      #     credentials: ${{ secrets.GKE_SA_KEY }}
 
-      - name: Deploy the GKE Cluster 
-        run: | 
-          cd kustomize/environments/preview
-          kubectl apply -k .
+      # - name: Deploy the GKE Cluster 
+      #   run: | 
+      #     cd kustomize/environments/preview
+      #     kubectl apply -k .
