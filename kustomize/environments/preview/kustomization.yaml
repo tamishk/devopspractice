@@ -9,8 +9,8 @@ replicas:
   count: 3
 
 images:
-- name: coitlearning/coit-frontend
-  newName: coitlearning/coit-frontend
+- name: tamishk/coit-frontend
+  newName: tamishk/coit-frontend
   newTag: latest
 
 namespace: preview
