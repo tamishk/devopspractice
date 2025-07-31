@@ -82,11 +82,12 @@ jobs:
 
       - name: Deploy the GKE Cluster 
         run: | 
-          cd kustomize/environments/preview
+          cd kustomize/environments
+          cd preview
           kubectl apply -k .
-          cd kustomize/environments/staging
+          cd ../staging/
           kubectl apply -k .
-          cd kustomize/environments/production
+          cd ../production/
           kubectl apply -k .
         # cd manifests/DeploymentAndServices-All
         # kubectl apply -f service-coit-frontend-lb.yaml
