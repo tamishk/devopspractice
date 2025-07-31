@@ -82,8 +82,8 @@ jobs:
 
       - name: Deploy the GKE Cluster 
         run: | 
-          cd manifests/DeploymentAndServices-All
-          kubectl apply -f service-coit-frontend-lb.yaml
-          kubectl apply -f coit-frontend-deployment.yaml
-        # cd kustomize/environments/preview
-        # kubectl apply -k .
+          cd kustomize/environments/preview
+          kubectl apply -k .
+        # cd manifests/DeploymentAndServices-All
+        # kubectl apply -f service-coit-frontend-lb.yaml
+        # kubectl apply -f coit-frontend-deployment.yaml

@@ -8,9 +8,9 @@ replicas:
 - name: coit-frontend 
   count: 3
 
-images:
-- name: tamishk/coit-frontend
-  newName: tamishk/coit-frontend
-  newTag: latest
+# images:
+# - name: tamishk/coit-frontend
+#   newName: tamishk/coit-frontend
+#   newTag: v2
 
 namespace: preview

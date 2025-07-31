@@ -9,22 +9,24 @@ replicas:
 - name: coit-frontend 
   count: 3
 
-images:
-- name: coitlearning/coit-frontend
-  newName: coitlearning/coit-frontend
-  newTag: 1.0.1
-
 namespace: default
 
-commonLabels:
-  customer: southvalley
-  owner: basil
-  app: frontend
+# images:
+# - name: coitlearning/coit-frontend
+#   newName: coitlearning/coit-frontend
+#   newTag: 1.0.1
 
-commonAnnotations:
-  customer: southvalley
-  owner: basil
-  app: frontend
+# namespace: default
 
-namePrefix: customer1-
-nameSuffix: -dev
+# commonLabels:
+#   customer: southvalley
+#   owner: basil
+#   app: frontend
+
+# commonAnnotations:
+#   customer: southvalley
+#   owner: basil
+#   app: frontend
+
+# namePrefix: customer1-
+# nameSuffix: -dev

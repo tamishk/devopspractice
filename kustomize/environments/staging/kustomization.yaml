@@ -8,9 +8,9 @@ replicas:
 - name: coit-frontend 
   count: 4
 
-images:
-- name: coitlearning/coit-frontend
-  newName: coitlearning/coit-frontend
-  newTag: '9'
+# images:
+# - name: coitlearning/coit-frontend
+#   newName: coitlearning/coit-frontend
+#   newTag: '9'
 
 namespace: staging
